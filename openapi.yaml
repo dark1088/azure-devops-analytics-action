@@ -1,0 +1,141 @@
+openapi: 3.1.0
+info:
+  title: Azure DevOps Analytics API
+  description: Zugriff auf Azure DevOps OData Analytics-Datenmodell (v3.0-preview). Unterstützt Abfragen zu WorkItems, Builds, Pipelines, Repositories, TestRuns usw.
+  version: 1.0.0
+servers:
+  - url: https://analytics.dev.azure.com/{organization}/{project}/_odata/v3.0-preview
+    description: Azure DevOps Analytics Service
+    variables:
+      organization:
+        default: your-organization
+        description: Name der Azure DevOps Organisation
+      project:
+        default: your-project
+        description: Name des Azure DevOps Projekts
+paths:
+  /WorkItems:
+    get:
+      operationId: getWorkItems
+      summary: Liste von WorkItems abfragen
+      parameters:
+        - $ref: '#/components/parameters/select'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/top'
+      responses:
+        '200':
+          description: Liste von WorkItems
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataResponse'
+      security:
+        - basicAuth: []
+
+  /Builds:
+    get:
+      operationId: getBuilds
+      summary: Liste von Builds abfragen
+      parameters:
+        - $ref: '#/components/parameters/select'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/top'
+      responses:
+        '200':
+          description: Liste von Builds
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataResponse'
+      security:
+        - basicAuth: []
+
+  /Repositories:
+    get:
+      operationId: getRepositories
+      summary: Liste von Repositories abfragen
+      parameters:
+        - $ref: '#/components/parameters/select'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/top'
+      responses:
+        '200':
+          description: Liste von Repositories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataResponse'
+      security:
+        - basicAuth: []
+
+  /TestRuns:
+    get:
+      operationId: getTestRuns
+      summary: Liste von TestRuns abfragen
+      parameters:
+        - $ref: '#/components/parameters/select'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/top'
+      responses:
+        '200':
+          description: Liste von TestRuns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataResponse'
+      security:
+        - basicAuth: []
+
+  /Pipelines:
+    get:
+      operationId: getPipelines
+      summary: Liste von Pipelines abfragen
+      parameters:
+        - $ref: '#/components/parameters/select'
+        - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/top'
+      responses:
+        '200':
+          description: Liste von Pipelines
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ODataResponse'
+      security:
+        - basicAuth: []
+
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  parameters:
+    select:
+      name: $select
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Kommagetrennte Liste von Feldern (z. B. `WorkItemId,Title,State`)
+    filter:
+      name: $filter
+      in: query
+      required: false
+      schema:
+        type: string
+      description: OData Filterausdruck (z. B. `WorkItemType eq 'Bug'`)
+    top:
+      name: $top
+      in: query
+      required: false
+      schema:
+        type: integer
+      description: Anzahl der zurückzugebenden Einträge
+  schemas:
+    ODataResponse:
+      type: object
+      properties:
+        value:
+          type: array
+          items:
+            type: object
