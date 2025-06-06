@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/.well-known/ai-plugin.json",
+      "destination": "/.well-known/ai-plugin.json",
+      "statusCode": 200
+    }
+  ]
+}
