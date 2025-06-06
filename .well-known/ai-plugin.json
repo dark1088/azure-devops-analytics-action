@@ -9,7 +9,7 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://<your-domain>/openapi.yaml",
+    "url": "https://github.com/dark1088/azure-devops-analytics-action/blob/54b17fff2abc4b0d9f56f2e39ea141a21b5d31b9/openapi.yaml",
     "is_user_authenticated": true
   },
   "logo_url": "https://<your-domain>/logo.png",
